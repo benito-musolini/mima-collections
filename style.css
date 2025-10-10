@@ -5,6 +5,66 @@
     box-sizing: border-box;
 }
 
+/* Splash Screen Styles */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    text-align: center;
+    color: white;
+    animation: fadeInUp 1s ease;
+}
+
+.splash-logo h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+}
+
+.splash-tagline {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-top: 2rem;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Make sure body doesn't scroll during splash */
+body.splash-active {
+    overflow: hidden;
+}
+
 :root {
     --primary-color: #88C9BF;
     --primary-dark: #6BA89C;
@@ -242,34 +302,103 @@ body {
     transition: transform 0.5s ease;
 }
 
+
+/* Fashion Icons Carousel */
 .carousel-slide {
     min-width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
 }
 
+/* Remove any existing image styles for carousel */
 .carousel-slide img {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
+    display: none;
 }
 
 .carousel-content {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    color: var(--white);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+/* Fashion Icons Styling */
+.fashion-icons {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1s ease;
+}
+
+.fashion-icons i {
+    font-size: 4rem;
+    opacity: 0.9;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+}
+
+.fashion-icons i:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.fashion-icons i:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 .carousel-content h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: fadeInUp 1s ease 0.3s both;
+}
+
+.carousel-content p {
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.cta-button {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 1s ease 0.9s both;
+}
+
+.cta-button:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.carousel-content h1 {
+    font-size: 3.5rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
 }
 
 .carousel-content p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 2rem;
     animation: fadeInUp 1s ease 0.3s both;
 }
@@ -399,15 +528,20 @@ body {
 }
 
 .product-image {
-    position: relative;
+    height: 280px; /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #88C9BF;
     overflow: hidden;
-    height: 250px;
 }
 
 .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     transition: var(--transition);
 }
 
@@ -903,4 +1037,292 @@ body {
     width: 100%;
     height: 600px;
     object-fit: cover;
+}
+
+/* Color Swatches Styles */
+.color-swatches {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+  }
+  
+  .color-swatch {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .color-swatch.active {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+  }
+  
+  .color-swatch:hover {
+    transform: scale(1.15);
+  }
+  
+  .color-swatch::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+  }
+  
+  .color-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  
+  /* Modal Color Selector */
+  .modal-color-selector {
+    margin: 15px 0;
+  }
+  
+  .modal-color-selector h4 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  .modal-color-swatches {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .modal-color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .modal-color-swatch.active {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+  }
+  
+  .modal-color-swatch:hover {
+    transform: scale(1.15);
+  }
+  
+  .modal-price {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 10px 0;
+  }
+  /* Empty State Styles */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+  }
+  
+  .empty-state-image {
+    margin-bottom: 1.5rem;
+  }
+  
+  .empty-state h3 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+  }
+  
+  .empty-state p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .empty-state-message {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    display: inline-block;
+    font-size: 1.2rem;
+  }
+  
+  .view-all-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+  }
+  
+  .view-all-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  /* WhatsApp Checkout Button */
+.checkout-btn {
+    width: 100%;
+    background: #25D366; /* WhatsApp green */
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.checkout-btn:hover {
+    background: #128C7E; /* Darker WhatsApp green */
+    transform: translateY(-2px);
+}
+
+.checkout-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.checkout-btn i {
+    font-size: 1.2rem;
+}
+
+/* Payment Modal Styles */
+.payment-modal {
+    max-width: 500px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.payment-option {
+    border: 2px solid var(--gray-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.payment-option.active {
+    border-color: var(--primary-color);
+    background: rgba(136, 201, 191, 0.05);
+}
+
+.payment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.payment-header i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.payment-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.coming-soon {
+    background: #FF6B6B;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.payment-select-btn {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: var(--transition);
+}
+
+.payment-select-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.payment-select-btn.disabled {
+    background: var(--gray);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.payment-select-btn.disabled:hover {
+    background: var(--gray);
+    transform: none;
+}
+
+.payment-note {
+    background: #FFF3CD;
+    border: 1px solid #FFEAA7;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.order-summary {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+
+/* Subtle pulse animation for icons */
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+}
+
+.fashion-icons i:hover {
+    animation: pulse-glow 1s ease-in-out;
+}
+
+/* Add this to your CSS for subtle patterns */
+.pattern-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    opacity: 0.3;
 }
